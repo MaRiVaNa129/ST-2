@@ -1,10 +1,9 @@
 // Copyright 2022 UNN-CS
-#include "tasks.h"
-#include "circle.h"
 #include <cmath>
+#include "circle.h"
+#include "tasks.h"
 
-double calculateEarthRopeGap()
-{
+double calculateEarthRopeGap() {
   const double EARTH_RADIUS_M = 6378100.0;
   Circle earth(EARTH_RADIUS_M);
   double originalRopeLength = earth.getFerence();
@@ -14,8 +13,7 @@ double calculateEarthRopeGap()
   return newCircle.getRadius() - EARTH_RADIUS_M;
 }
 
-PoolCosts calculatePoolCosts()
-{
+PoolCosts calculatePoolCosts() {
   const double POOL_RADIUS = 3.0;
   const double PATH_WIDTH = 1.0;
   const double CONCRETE_PRICE = 1000.0;

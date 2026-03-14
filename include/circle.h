@@ -2,14 +2,13 @@
 #ifndef INCLUDE_CIRCLE_H_
 #define INCLUDE_CIRCLE_H_
 
-class Circle
-{
-private:
+class Circle {
+ private:
   double radius;
   double ference;
   double area;
 
-public:
+ public:
   explicit Circle(double r = 0.0);
   void setRadius(double r);
   void setFerence(double f);
@@ -19,4 +18,4 @@ public:
   double getArea() const;
 };
 
-#endif // INCLUDE_CIRCLE_H_
+#endif  // INCLUDE_CIRCLE_H_

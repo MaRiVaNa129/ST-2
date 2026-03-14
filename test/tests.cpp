@@ -1,15 +1,13 @@
 // Copyright 2025 UNN-CS Team
-
-#include <gtest/gtest.h>
 #include <cmath>
+#include <gtest/gtest.h>
 #include "circle.h"
 #include "tasks.h"
 
 const double PI = 3.141592653589793;
 const double EPSILON = 1e-10;
 
-TEST(CircleTest, Constructor)
-{
+TEST(CircleTest, Constructor) {
   Circle c1(5.0);
   EXPECT_NEAR(c1.getRadius(), 5.0, EPSILON);
   EXPECT_NEAR(c1.getFerence(), 2.0 * PI * 5.0, EPSILON);
@@ -24,8 +22,7 @@ TEST(CircleTest, Constructor)
   EXPECT_NEAR(c3.getRadius(), 0.0, EPSILON);
 }
 
-TEST(CircleTest, SetRadius)
-{
+TEST(CircleTest, SetRadius) {
   Circle c;
   c.setRadius(10.0);
   EXPECT_NEAR(c.getRadius(), 10.0, EPSILON);
@@ -38,8 +35,7 @@ TEST(CircleTest, SetRadius)
   EXPECT_NEAR(c.getArea(), 0.0, EPSILON);
 }
 
-TEST(CircleTest, SetFerence)
-{
+TEST(CircleTest, SetFerence) {
   Circle c;
   double ference = 31.4159265359;
   c.setFerence(ference);
@@ -55,8 +51,7 @@ TEST(CircleTest, SetFerence)
   EXPECT_NEAR(c.getArea(), 0.0, EPSILON);
 }
 
-TEST(CircleTest, SetArea)
-{
+TEST(CircleTest, SetArea) {
   Circle c;
   double area = 78.53981634;
   c.setArea(area);
@@ -72,8 +67,7 @@ TEST(CircleTest, SetArea)
   EXPECT_NEAR(c.getFerence(), 0.0, EPSILON);
 }
 
-TEST(CircleTest, Consistency)
-{
+TEST(CircleTest, Consistency) {
   Circle c(7.0);
 
   c.setFerence(50.0);
@@ -85,8 +79,7 @@ TEST(CircleTest, Consistency)
   EXPECT_NEAR(c.getFerence(), 2.0 * PI * c.getRadius(), EPSILON);
 }
 
-TEST(CircleTest, EdgeCases)
-{
+TEST(CircleTest, EdgeCases) {
   Circle c;
 
   c.setRadius(0.0);
@@ -100,8 +93,7 @@ TEST(CircleTest, EdgeCases)
   EXPECT_GT(c.getArea(), 0.0);
 }
 
-TEST(CircleTest, MultipleOperations)
-{
+TEST(CircleTest, MultipleOperations) {
   Circle c;
 
   c.setRadius(5.0);
@@ -117,8 +109,7 @@ TEST(CircleTest, MultipleOperations)
   EXPECT_LT(r3, r2);
 }
 
-TEST(CircleTest, Precision)
-{
+TEST(CircleTest, Precision) {
   Circle c;
 
   c.setRadius(123.456789);
@@ -131,8 +122,7 @@ TEST(CircleTest, Precision)
   EXPECT_NEAR(c.getRadius(), originalRadius, EPSILON);
 }
 
-TEST(CircleTest, LargeValues)
-{
+TEST(CircleTest, LargeValues) {
   Circle c;
 
   c.setRadius(1e6);
@@ -144,23 +134,20 @@ TEST(CircleTest, LargeValues)
   EXPECT_GT(c.getFerence(), 0.0);
 }
 
-TEST(CircleTest, ConstGetters)
-{
+TEST(CircleTest, ConstGetters) {
   const Circle constCircle(5.0);
   EXPECT_NEAR(constCircle.getRadius(), 5.0, EPSILON);
   EXPECT_NEAR(constCircle.getFerence(), 2.0 * PI * 5.0, EPSILON);
 }
 
-TEST(CircleTest, TinyValues)
-{
+TEST(CircleTest, TinyValues) {
   Circle tiny(1e-15);
   EXPECT_GT(tiny.getRadius(), 0.0);
   EXPECT_GT(tiny.getFerence(), 0.0);
   EXPECT_GT(tiny.getArea(), 0.0);
 }
 
-TEST(TasksTest, EarthRopeGap)
-{
+TEST(TasksTest, EarthRopeGap) {
   double gap = calculateEarthRopeGap();
   double expectedGap = 1.0 / (2.0 * PI);
   EXPECT_NEAR(gap, expectedGap, 1e-6);
@@ -168,8 +155,7 @@ TEST(TasksTest, EarthRopeGap)
   EXPECT_LT(gap, 0.17);
 }
 
-TEST(TasksTest, PoolCosts)
-{
+TEST(TasksTest, PoolCosts) {
   PoolCosts costs = calculatePoolCosts();
 
   double expectedPathArea = PI * (16.0 - 9.0);
