@@ -1,6 +1,6 @@
 // Copyright 2025 UNN-CS Team
-#include <cmath>
 #include <gtest/gtest.h>
+#include <cmath>
 #include "circle.h"
 #include "tasks.h"
 
