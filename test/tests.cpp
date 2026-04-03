@@ -204,7 +204,6 @@ TEST(CircleTest, ZeroRadiusOperations) {
     EXPECT_NEAR(c.getRadius(), 0.0, EPSILON);
     EXPECT_NEAR(c.getFerence(), 0.0, EPSILON);
     EXPECT_NEAR(c.getArea(), 0.0, EPSILON);
-    
     c.setFerence(10.0);
     EXPECT_NEAR(c.getRadius(), 10.0 / (2.0 * PI), EPSILON);
 }
@@ -253,7 +252,7 @@ TEST(TasksTest, EarthRopeGapPositive) {
 }
 
 TEST(TasksTest, EarthRopeGapFormula) {
-    double expected = 1.0 / (2.0 * PI);  
+    double expected = 1.0 / (2.0 * PI);
     EXPECT_NEAR(calculateEarthRopeGap(), expected, 1e-9);
 }
 
