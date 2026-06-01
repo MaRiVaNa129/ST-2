@@ -1,34 +1,52 @@
-// Copyright 2022 UNN-CS
+// Copyright 2026 UNN-CS
+#include <stdexcept>
 #include <cmath>
 #include "circle.h"
 #include "tasks.h"
 
-double calculateEarthRopeGap() {
-  const double EARTH_RADIUS_M = 6378100.0;
-  Circle earth(EARTH_RADIUS_M);
-  double originalRopeLength = earth.getFerence();
-  double newRopeLength = originalRopeLength + 1.0;
-  Circle newCircle;
-  newCircle.setFerence(newRopeLength);
-  return newCircle.getRadius() - EARTH_RADIUS_M;
+namespace {
+constexpr double Pi = 3.14159265358979323846;
 }
 
-PoolCosts calculatePoolCosts() {
-  const double POOL_RADIUS = 3.0;
-  const double PATH_WIDTH = 1.0;
-  const double CONCRETE_PRICE = 1000.0;
-  const double FENCE_PRICE = 2000.0;
+double getEarthRopeGap(double earthRadiusKm, double addedRopeLengthMeters) {
+  if (earthRadiusKm <= 0.0) {
+    throw std::invalid_argument("Earth radius must be positive");
+  }
+  if (addedRopeLengthMeters <= 0.0) {
+    throw std::invalid_argument("Added rope length must be positive");
+  }
 
-  Circle pool(POOL_RADIUS);
-  Circle poolWithPath(POOL_RADIUS + PATH_WIDTH);
+  const double earthRadiusMeters = earthRadiusKm * 1000.0;
+  Circle earth(earthRadiusMeters);
+  const double initialFerence = earth.getFerence();
 
-  double pathArea = poolWithPath.getArea() - pool.getArea();
-  double fenceLength = poolWithPath.getFerence();
+  earth.setFerence(initialFerence + addedRopeLengthMeters);
+  return earth.getRadius() - earthRadiusMeters;
+}
 
-  PoolCosts costs;
-  costs.concreteCost = pathArea * CONCRETE_PRICE;
-  costs.fenceCost = fenceLength * FENCE_PRICE;
-  costs.totalCost = costs.concreteCost + costs.fenceCost;
+PoolCosts calculatePoolCosts(double poolRadius,
+                             double trackWidth,
+                             double concreteCostPerSqMeter,
+                             double fenceCostPerMeter) {
+  if (poolRadius <= 0.0) {
+    throw std::invalid_argument("Pool radius must be positive");
+  }
+  if (trackWidth <= 0.0) {
+    throw std::invalid_argument("Track width must be positive");
+  }
+  if (concreteCostPerSqMeter < 0.0) {
+    throw std::invalid_argument("Concrete cost cannot be negative");
+  }
+  if (fenceCostPerMeter < 0.0) {
+    throw std::invalid_argument("Fence cost cannot be negative");
+  }
 
-  return costs;
+  Circle pool(poolRadius);
+  Circle outer(poolRadius + trackWidth);
+
+  const double walkwayArea = outer.getArea() - pool.getArea();
+  const double concreteCost = walkwayArea * concreteCostPerSqMeter;
+  const double fenceCost = outer.getFerence() * fenceCostPerMeter;
+
+  return {concreteCost, fenceCost, concreteCost + fenceCost};
 }

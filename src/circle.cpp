@@ -1,41 +1,54 @@
-// Copyright 2022 UNN-CS
+// Copyright 2026 UNN-CS
 #include <cmath>
+#include <stdexcept>
 #include "circle.h"
 
-static const double PI = 3.141592653589793;
-
-Circle::Circle(double r) {
-  radius = r < 0.0 ? 0.0 : r;
-  ference = 2.0 * PI * radius;
-  area = PI * radius * radius;
+namespace {
+constexpr double Pi = 3.14159265358979323846;
 }
 
-void Circle::setRadius(double r) {
-  radius = r < 0.0 ? 0.0 : r;
-  ference = 2.0 * PI * radius;
-  area = PI * radius * radius;
+Circle::Circle(double radius) {
+  setRadius(radius);
 }
 
-void Circle::setFerence(double f) {
-  ference = f < 0.0 ? 0.0 : f;
-  radius = ference / (2.0 * PI);
-  area = PI * radius * radius;
+void Circle::setRadius(double radius) {
+  if (radius <= 0.0) {
+    throw std::invalid_argument("Radius must be positive");
+  }
+
+  radius_ = radius;
+  ference_ = 2.0 * Pi * radius_;
+  area_ = Pi * radius_ * radius_;
 }
 
-void Circle::setArea(double a) {
-  area = a < 0.0 ? 0.0 : a;
-  radius = std::sqrt(area / PI);
-  ference = 2.0 * PI * radius;
+void Circle::setFerence(double ference) {
+  if (ference <= 0.0) {
+    throw std::invalid_argument("Circumference must be positive");
+  }
+
+  ference_ = ference;
+  radius_ = ference_ / (2.0 * Pi);
+  area_ = Pi * radius_ * radius_;
+}
+
+void Circle::setArea(double area) {
+  if (area <= 0.0) {
+    throw std::invalid_argument("Area must be positive");
+  }
+
+  area_ = area;
+  radius_ = std::sqrt(area_ / Pi);
+  ference_ = 2.0 * Pi * radius_;
 }
 
 double Circle::getRadius() const {
-  return radius;
+  return radius_;
 }
 
 double Circle::getFerence() const {
-  return ference;
+  return ference_;
 }
 
 double Circle::getArea() const {
-  return area;
+  return area_;
 }
